@@ -1,5 +1,7 @@
 import express from 'express';
 import cors from 'cors';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import usuariosRouter from './routes/usuarios.js';
 import clientesRouter from './routes/clientes.js';
 import proveedoresRouter from './routes/proveedores.js';
@@ -14,10 +16,11 @@ import reportesRouter from './routes/reportes.js';
 import dashboardRouter from './routes/dashboard.js';
 import configuracionRouter from './routes/configuracion.js';
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
 
 app.use(cors());
-app.use(express.json({ limit: '5mb' })); // límite más alto por las fotos de productos en base64
+app.use(express.json({ limit: '5mb' }));
 
 app.use('/api/usuarios', usuariosRouter);
 app.use('/api/clientes', clientesRouter);
@@ -35,5 +38,12 @@ app.use('/api/configuracion', configuracionRouter);
 
 app.get('/api/health', (req, res) => res.json({ ok: true }));
 
+const carpetaFrontend = path.join(__dirname, '..', 'dist');
+app.use(express.static(carpetaFrontend));
+app.use((req, res, next) => {
+  if (req.path.startsWith('/api')) return next();
+  res.sendFile(path.join(carpetaFrontend, 'index.html'));
+});
+
 const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => console.log(`API corriendo en http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`Servidor corriendo en http://localhost:${PORT}`));
