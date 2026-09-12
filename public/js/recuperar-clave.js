@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3001/api/usuarios/recuperar';
+const API_URL = '/api/usuarios/recuperar';
 
 function mostrarToast(mensaje, tipo = 'ok') {
   let cont = document.getElementById('toastContainer');

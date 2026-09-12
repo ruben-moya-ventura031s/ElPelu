@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3001/api/metodos-pago';
+const API_URL = '/api/metodos-pago';
 
 let metodos = [];
 

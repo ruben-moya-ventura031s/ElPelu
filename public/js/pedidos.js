@@ -1,11 +1,11 @@
-const API_URL = 'http://localhost:3001/api/pedidos';
+const API_URL = '/api/pedidos';
 
 let pedidos = [];
 let pedidoAbiertoId = null;
 
 async function cargarClientesSelect() {
   try {
-    const respuesta = await fetch('http://localhost:3001/api/clientes');
+    const respuesta = await fetch('/api/clientes');
     if (!respuesta.ok) throw new Error('API no disponible');
     const clientes = await respuesta.json();
     document.getElementById('cliente').innerHTML = clientes.map(c => `<option value="${c.id_cliente}">${c.nombre}</option>`).join('');
@@ -16,7 +16,7 @@ async function cargarClientesSelect() {
 
 async function cargarMaterialesSelect() {
   try {
-    const respuesta = await fetch('http://localhost:3001/api/productos');
+    const respuesta = await fetch('/api/productos');
     if (!respuesta.ok) throw new Error('API no disponible');
     const productos = await respuesta.json();
     const materiales = productos.filter(p => p.tipo === 'MATERIAL' && p.estado);

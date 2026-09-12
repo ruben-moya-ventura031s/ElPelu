@@ -2,7 +2,7 @@
 (function interceptarFetch() {
   const fetchOriginal = window.fetch;
   window.fetch = function (url, options = {}) {
-    if (typeof url === 'string' && url.startsWith('http://localhost:3001/api/')) {
+    if (typeof url === 'string' && url.startsWith('/api/')) {
       const sesion = JSON.parse(localStorage.getItem('sesionElPelu') || '{}');
       if (sesion.token) {
         options = { ...options, headers: { ...(options.headers || {}), Authorization: 'Bearer ' + sesion.token } };

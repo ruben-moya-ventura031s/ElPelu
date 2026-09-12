@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3001/api/cuentas-cobrar';
+const API_URL = '/api/cuentas-cobrar';
 
 let cuentas = [];
 let idCuentaSeleccionada = null;
@@ -17,7 +17,7 @@ async function cargarCuentas() {
 
 async function cargarMetodosPago() {
   try {
-    const respuesta = await fetch('http://localhost:3001/api/metodos-pago');
+    const respuesta = await fetch('/api/metodos-pago');
     if (!respuesta.ok) throw new Error('API no disponible');
     const metodos = await respuesta.json();
     document.getElementById('metodoPago').innerHTML = metodos.map(m => `<option value="${m.id_metodo_pago}">${m.nombre}</option>`).join('');

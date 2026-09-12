@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3001/api/compras';
+const API_URL = '/api/compras';
 
 let compras = [];
 let productosDisponibles = [];
@@ -32,8 +32,8 @@ function render(lista) {
 async function cargarSelects() {
   try {
     const [rProveedores, rProductos] = await Promise.all([
-      fetch('http://localhost:3001/api/proveedores'),
-      fetch('http://localhost:3001/api/productos')
+      fetch('/api/proveedores'),
+      fetch('/api/productos')
     ]);
     if (rProveedores.ok) {
       const proveedores = await rProveedores.json();

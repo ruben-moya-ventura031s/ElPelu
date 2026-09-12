@@ -1,8 +1,8 @@
-const API_URL_VENTAS = 'http://localhost:3001/api/ventas';
-const API_URL_PRODUCTOS = 'http://localhost:3001/api/productos';
-const API_URL_CLIENTES = 'http://localhost:3001/api/clientes';
-const API_URL_PEDIDOS = 'http://localhost:3001/api/pedidos';
-const API_URL_CONFIG = 'http://localhost:3001/api/configuracion';
+const API_URL_VENTAS = '/api/ventas';
+const API_URL_PRODUCTOS = '/api/productos';
+const API_URL_CLIENTES = '/api/clientes';
+const API_URL_PEDIDOS = '/api/pedidos';
+const API_URL_CONFIG = '/api/configuracion';
 
 let catalogo = [];
 let carrito = [];

@@ -1,4 +1,4 @@
-const API_BASE = 'http://localhost:3001/api/reportes';
+const API_BASE = '/api/reportes';
 
 const config = {
   ventas: {

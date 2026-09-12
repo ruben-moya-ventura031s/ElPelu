@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3001/api/dashboard';
+const API_URL = '/api/dashboard';
 
 let datosGrafico = [
   { dia: 'Lun', valor: 0 }, { dia: 'Mar', valor: 0 }, { dia: 'Mié', valor: 0 },
@@ -71,7 +71,7 @@ async function cargarDashboard() {
 async function cargarStockBajo() {
   const tbody = document.getElementById('tablaStockBajo');
   try {
-    const respuesta = await fetch('http://localhost:3001/api/reportes/inventario-bajo');
+    const respuesta = await fetch('/api/reportes/inventario-bajo');
     if (!respuesta.ok) throw new Error('API no disponible');
     const datos = await respuesta.json();
 

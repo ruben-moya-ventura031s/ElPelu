@@ -1,10 +1,10 @@
-const API_URL = 'http://localhost:3001/api/inventario';
+const API_URL = '/api/inventario';
 
 let movimientos = [];
 
 async function cargarProductosSelect() {
   try {
-    const respuesta = await fetch('http://localhost:3001/api/productos');
+    const respuesta = await fetch('/api/productos');
     if (!respuesta.ok) throw new Error('API no disponible');
     const productos = await respuesta.json();
     document.getElementById('producto').innerHTML = productos.map(p =>

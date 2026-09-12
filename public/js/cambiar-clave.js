@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3001/api/usuarios';
+const API_URL = '/api/usuarios';
 
 function limpiarErrores() {
   ['fActual', 'fNueva', 'fConfirmar'].forEach(id => document.getElementById(id).classList.remove('error'));

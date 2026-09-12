@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3001/api/usuarios/login';
+const API_URL = '/api/usuarios/login';
 
 function mostrarToast(mensaje, tipo = 'ok') {
   let cont = document.getElementById('toastContainer');
@@ -24,7 +24,7 @@ function togglePass() {
 
 async function cargarMetricasLogin() {
   try {
-    const respuesta = await fetch('http://localhost:3001/api/dashboard');
+    const respuesta = await fetch('/api/dashboard');
     // El dashboard exige sesión; en el login no la hay todavía, así que si falla, se queda en "—".
     if (!respuesta.ok) return;
     const datos = await respuesta.json();

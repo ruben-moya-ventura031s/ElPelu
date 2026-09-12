@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3001/api/productos';
+const API_URL = '/api/productos';
 
 let productos = [];
 let imagenBase64Actual = null;
@@ -38,7 +38,7 @@ function nivelStock(p) {
 
 async function cargarProveedoresSelect() {
   try {
-    const respuesta = await fetch('http://localhost:3001/api/proveedores');
+    const respuesta = await fetch('/api/proveedores');
     if (!respuesta.ok) throw new Error('API no disponible');
     const proveedores = await respuesta.json();
     document.getElementById('proveedor').innerHTML = '<option value="">Ninguno</option>' +

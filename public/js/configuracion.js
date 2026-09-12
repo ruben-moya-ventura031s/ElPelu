@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3001/api/configuracion';
+const API_URL = '/api/configuracion';
 
 async function cargarConfiguracion() {
   try {
