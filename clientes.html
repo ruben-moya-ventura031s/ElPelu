@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clientes · El Pelú</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="app">
+
+  <aside class="sidebar">
+    <div class="brand">EL <span>PELÚ</span></div>
+    <div class="nav-group-label">Panel</div>
+    <a class="nav-link" href="dashboard.html">Dashboard</a>
+    <div class="nav-group-label">Mantenimientos</div>
+    <a class="nav-link active" href="clientes.html">Clientes</a>
+    <a class="nav-link" href="proveedores.html">Proveedores</a>
+    <a class="nav-link" href="productos.html">Productos y materiales</a>
+    <a class="nav-link" href="metodos-pago.html">Métodos de pago</a>
+    <div class="nav-group-label">Procesos</div>
+    <a class="nav-link" href="pedidos.html">Pedidos a medida</a>
+    <a class="nav-link" href="ventas.html">Ventas / Facturación</a>
+    <a class="nav-link" href="compras.html">Compras</a>
+    <a class="nav-link" href="inventario.html">Inventario</a>
+    <a class="nav-link" href="cuentas-cobrar.html">Cuentas por cobrar</a>
+    <div class="nav-group-label">Sistema</div>
+    <a class="nav-link" href="reportes.html">Reportes</a>
+    <a class="nav-link" href="configuracion.html">Configuración</a>
+  </aside>
+
+  <div class="main">
+    <div class="topbar">
+      <h1>Clientes</h1>
+      <div class="user-chip"></div>
+    </div>
+
+    <div class="content">
+      <div class="toolbar">
+        <input class="search-box" id="buscador" placeholder="Buscar por nombre o cédula/RNC..." oninput="filtrar()">
+        <button class="btn btn-primary" onclick="nuevoCliente()">+ Nuevo cliente</button>
+      </div>
+
+      <div class="panel">
+        <table>
+          <thead>
+            <tr><th>Cliente</th><th>Cédula/RNC</th><th>Teléfono</th><th>Límite crédito</th><th>Estado</th><th></th></tr>
+          </thead>
+          <tbody id="tablaClientes"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="modalCliente">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="tituloModal" style="font-size:15px;">Nuevo cliente</h3>
+      <button class="btn-icon" onclick="cerrarModal('modalCliente')">✕</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="idCliente">
+      <div class="field field-full" id="fNombre">
+        <label>Nombre / Empresa *</label>
+        <input type="text" id="nombre">
+        <div class="error-msg">El nombre es obligatorio</div>
+      </div>
+      <div class="field" id="fCedula">
+        <label>Cédula / RNC</label>
+        <input type="text" id="cedula" oninput="formatearCedula(this)" placeholder="000-0000000-0" maxlength="13">
+        <div class="error-msg">Formato requerido: 000-0000000-0 (o déjalo vacío)</div>
+      </div>
+      <div class="field" id="fTelefono">
+        <label>Teléfono</label>
+        <input type="text" id="telefono" oninput="formatearTelefono(this)" placeholder="000-000-0000" maxlength="12">
+        <div class="error-msg">Formato requerido: 000-000-0000</div>
+      </div>
+      <div class="field" id="fCorreo">
+        <label>Correo</label>
+        <input type="email" id="correo">
+        <div class="error-msg">El correo no tiene un formato válido</div>
+      </div>
+      <div class="field">
+        <label>Límite de crédito (RD$)</label>
+        <input type="number" id="limiteCredito" min="0" step="0.01" value="0">
+      </div>
+      <div class="field field-full">
+        <label>Dirección</label>
+        <input type="text" id="direccion">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="cerrarModal('modalCliente')">Cancelar</button>
+      <button class="btn btn-primary" onclick="guardarCliente()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/app.js"></script>
+<script src="js/clientes.js"></script>
+</body>
+</html>

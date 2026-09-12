@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Compras · El Pelú</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="app">
+
+  <aside class="sidebar">
+    <div class="brand">EL <span>PELÚ</span></div>
+    <div class="nav-group-label">Panel</div>
+    <a class="nav-link" href="dashboard.html">Dashboard</a>
+    <div class="nav-group-label">Mantenimientos</div>
+    <a class="nav-link" href="clientes.html">Clientes</a>
+    <a class="nav-link" href="proveedores.html">Proveedores</a>
+    <a class="nav-link" href="productos.html">Productos y materiales</a>
+    <a class="nav-link" href="metodos-pago.html">Métodos de pago</a>
+    <div class="nav-group-label">Procesos</div>
+    <a class="nav-link" href="pedidos.html">Pedidos a medida</a>
+    <a class="nav-link" href="ventas.html">Ventas / Facturación</a>
+    <a class="nav-link active" href="compras.html">Compras</a>
+    <a class="nav-link" href="inventario.html">Inventario</a>
+    <a class="nav-link" href="cuentas-cobrar.html">Cuentas por cobrar</a>
+    <div class="nav-group-label">Sistema</div>
+    <a class="nav-link" href="reportes.html">Reportes</a>
+    <a class="nav-link" href="configuracion.html">Configuración</a>
+  </aside>
+
+  <div class="main">
+    <div class="topbar">
+      <h1>Compras</h1>
+      <div class="user-chip"></div>
+    </div>
+
+    <div class="content">
+      <div class="toolbar">
+        <span></span>
+        <button class="btn btn-primary" onclick="nuevaCompra()">+ Nueva compra</button>
+      </div>
+
+      <div class="panel">
+        <table>
+          <thead><tr><th>Proveedor</th><th>Fecha</th><th>Total</th><th>Estado</th></tr></thead>
+          <tbody id="tablaCompras"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="modalCompra">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 style="font-size:15px;">Nueva compra</h3>
+      <button class="btn-icon" onclick="cerrarModal('modalCompra')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="field field-full" id="fProveedor">
+        <label>Proveedor *</label>
+        <select id="proveedor"></select>
+        <div class="error-msg">El proveedor es obligatorio</div>
+      </div>
+
+      <div class="field-full" style="border-top:1px solid var(--line);padding-top:14px;">
+        <h4 style="font-size:13px;margin-bottom:10px;">Productos a comprar</h4>
+        <table>
+          <thead><tr><th>Producto</th><th>Cantidad</th><th>Precio</th><th>Subtotal</th><th></th></tr></thead>
+          <tbody id="tablaItemsCompra"></tbody>
+        </table>
+      </div>
+
+      <div class="field" id="fProductoCompra">
+        <label>Producto</label>
+        <select id="productoCompra" onchange="actualizarPrecioCompra()"></select>
+      </div>
+      <div class="field">
+        <label>Cantidad</label>
+        <input type="number" id="cantidadCompra" min="0.01" step="0.01" value="1" oninput="calcularSubtotalLinea()">
+      </div>
+      <div class="field">
+        <label>Precio unitario</label>
+        <input type="number" id="precioCompra" min="0" step="0.01">
+      </div>
+      <div class="field-full">
+        <button class="btn btn-outline" style="width:100%;" onclick="agregarItemCompra()">+ Agregar a la compra</button>
+      </div>
+
+      <div class="field-full" style="text-align:right;font-size:16px;font-weight:700;border-top:1px solid var(--line);padding-top:10px;">
+        Total: <span id="totalCompraTxt">RD$ 0.00</span>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="cerrarModal('modalCompra')">Cancelar</button>
+      <button class="btn btn-primary" onclick="guardarCompra()">Registrar compra</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/app.js"></script>
+<script src="js/compras.js"></script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cuentas por cobrar · El Pelú</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="app">
+
+  <aside class="sidebar">
+    <div class="brand">EL <span>PELÚ</span></div>
+    <div class="nav-group-label">Panel</div>
+    <a class="nav-link" href="dashboard.html">Dashboard</a>
+    <div class="nav-group-label">Mantenimientos</div>
+    <a class="nav-link" href="clientes.html">Clientes</a>
+    <a class="nav-link" href="proveedores.html">Proveedores</a>
+    <a class="nav-link" href="productos.html">Productos y materiales</a>
+    <a class="nav-link" href="metodos-pago.html">Métodos de pago</a>
+    <div class="nav-group-label">Procesos</div>
+    <a class="nav-link" href="pedidos.html">Pedidos a medida</a>
+    <a class="nav-link" href="ventas.html">Ventas / Facturación</a>
+    <a class="nav-link" href="compras.html">Compras</a>
+    <a class="nav-link" href="inventario.html">Inventario</a>
+    <a class="nav-link active" href="cuentas-cobrar.html">Cuentas por cobrar</a>
+    <div class="nav-group-label">Sistema</div>
+    <a class="nav-link" href="reportes.html">Reportes</a>
+    <a class="nav-link" href="configuracion.html">Configuración</a>
+  </aside>
+
+  <div class="main">
+    <div class="topbar">
+      <h1>Cuentas por cobrar</h1>
+      <div class="user-chip"></div>
+    </div>
+
+    <div class="content">
+      <div class="toolbar">
+        <input class="search-box" id="buscador" placeholder="Buscar cliente..." oninput="filtrar()">
+      </div>
+
+      <div class="panel">
+        <table>
+          <thead><tr><th>Cliente</th><th>Saldo pendiente</th><th>Vencimiento</th><th>Estado</th><th></th></tr></thead>
+          <tbody id="tablaCuentas"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="modalAbono">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 style="font-size:15px;">Registrar abono</h3>
+      <button class="btn-icon" onclick="cerrarModal('modalAbono')">✕</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:13px;color:var(--text-dim);" id="resumenAbono"></p>
+      <div class="field" id="fMonto">
+        <label>Monto a abonar (RD$) *</label>
+        <input type="number" id="monto" min="0.01" step="0.01">
+        <div class="error-msg">El monto es obligatorio</div>
+      </div>
+      <div class="field">
+        <label>Método de pago</label>
+        <select id="metodoPago"></select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="cerrarModal('modalAbono')">Cancelar</button>
+      <button class="btn btn-primary" onclick="confirmarAbono()">Registrar abono</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/app.js"></script>
+<script src="js/cuentas-cobrar.js"></script>
+</body>
+</html>

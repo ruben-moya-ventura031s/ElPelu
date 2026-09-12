@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recuperar contraseña · El Pelú</title>
+<link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+
+<div class="glow glow-a"></div>
+<div class="glow glow-b"></div>
+<div class="grid-overlay"></div>
+
+<div class="login-shell" style="grid-template-columns: 1fr;">
+  <div class="form-panel">
+    <form class="login-card" onsubmit="return false;">
+      <div class="login-card-head">
+        <div class="brand">EL <span>PELÚ</span></div>
+        <h2>Recuperar contraseña</h2>
+        <p>Confirma tu usuario y correo registrado, y define una contraseña nueva.</p>
+      </div>
+
+      <div class="field" id="fUsuario">
+        <label>Usuario *</label>
+        <input type="text" id="usuario">
+        <div class="error-msg">El usuario es obligatorio</div>
+      </div>
+
+      <div class="field" id="fCorreo">
+        <label>Correo registrado *</label>
+        <input type="email" id="correo">
+        <div class="error-msg">El correo es obligatorio</div>
+      </div>
+
+      <div class="field" id="fClaveNueva">
+        <label>Nueva contraseña *</label>
+        <input type="password" id="claveNueva">
+        <div class="error-msg">La nueva contraseña es obligatoria</div>
+      </div>
+
+      <button class="btn-login" onclick="recuperarClave()">Restablecer contraseña</button>
+
+      <a href="index.html" class="forgot-link">Volver a iniciar sesión</a>
+    </form>
+  </div>
+</div>
+
+<script src="js/recuperar-clave.js"></script>
+</body>
+</html>

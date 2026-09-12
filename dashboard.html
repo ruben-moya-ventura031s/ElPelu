@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard · El Pelú</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="app">
+
+  <aside class="sidebar">
+    <div class="brand">EL <span>PELÚ</span></div>
+
+    <div class="nav-group-label">Panel</div>
+    <a class="nav-link active" href="dashboard.html">Dashboard</a>
+
+    <div class="nav-group-label">Mantenimientos</div>
+    <a class="nav-link" href="clientes.html">Clientes</a>
+    <a class="nav-link" href="proveedores.html">Proveedores</a>
+    <a class="nav-link" href="productos.html">Productos y materiales</a>
+    <a class="nav-link" href="metodos-pago.html">Métodos de pago</a>
+
+    <div class="nav-group-label">Procesos</div>
+    <a class="nav-link" href="pedidos.html">Pedidos a medida</a>
+    <a class="nav-link" href="ventas.html">Ventas / Facturación</a>
+    <a class="nav-link" href="compras.html">Compras</a>
+    <a class="nav-link" href="inventario.html">Inventario</a>
+    <a class="nav-link" href="cuentas-cobrar.html">Cuentas por cobrar</a>
+
+    <div class="nav-group-label">Sistema</div>
+    <a class="nav-link" href="reportes.html">Reportes</a>
+    <a class="nav-link" href="configuracion.html">Configuración</a>
+  </aside>
+
+  <div class="main">
+    <div class="topbar">
+      <h1>Dashboard</h1>
+      <div class="user-chip"></div>
+    </div>
+
+    <div class="content">
+
+      <h3 style="margin-bottom:12px;font-size:13px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.4px;">Accesos rápidos</h3>
+      <div class="quick-slider">
+        <a class="quick-card" href="productos.html"><div class="qc-label">Inventario</div><div class="qc-title">Productos y stock</div></a>
+        <a class="quick-card" href="inventario.html"><div class="qc-label">Inventario</div><div class="qc-title">Entradas / Salidas</div></a>
+        <a class="quick-card" href="compras.html"><div class="qc-label">Inventario</div><div class="qc-title">Compras</div></a>
+        <a class="quick-card" href="clientes.html"><div class="qc-label">Mantenimiento</div><div class="qc-title">Clientes</div></a>
+        <a class="quick-card" href="proveedores.html"><div class="qc-label">Mantenimiento</div><div class="qc-title">Proveedores</div></a>
+        <a class="quick-card" href="pedidos.html"><div class="qc-label">Proceso</div><div class="qc-title">Pedidos a medida</div></a>
+        <a class="quick-card" href="ventas.html"><div class="qc-label">Proceso</div><div class="qc-title">Ventas</div></a>
+        <a class="quick-card" href="cuentas-cobrar.html"><div class="qc-label">Proceso</div><div class="qc-title">Cuentas por cobrar</div></a>
+      </div>
+
+      <h3 style="margin:22px 0 12px;font-size:13px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.4px;">Inventario</h3>
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-label">Valor total del inventario</div>
+          <div class="stat-value" id="statValorInventario">—</div>
+          <div class="stat-delta">a precio de compra</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Productos con stock bajo</div>
+          <div class="stat-value" id="statStockBajo">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Entradas este mes</div>
+          <div class="stat-value" id="statEntradasMes">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Salidas este mes</div>
+          <div class="stat-value" id="statSalidasMes">—</div>
+        </div>
+      </div>
+
+      <div class="panel-row">
+        <div class="panel">
+          <h3 style="margin-bottom:14px;font-size:14px;">Productos con stock bajo</h3>
+          <table>
+            <thead><tr><th>Producto</th><th>Stock</th></tr></thead>
+            <tbody id="tablaStockBajo">
+              <tr><td colspan="2" style="color:var(--text-dim);">Cargando...</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="panel">
+          <h3 style="margin-bottom:14px;font-size:14px;">Últimos movimientos de inventario</h3>
+          <table>
+            <thead><tr><th>Producto</th><th>Tipo</th><th>Cant.</th></tr></thead>
+            <tbody id="tablaMovimientos">
+              <tr><td colspan="3" style="color:var(--text-dim);">Cargando...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <h3 style="margin:22px 0 12px;font-size:13px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.4px;">Negocio</h3>
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-label">Ventas de hoy</div>
+          <div class="stat-value" id="statVentasHoy">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Pedidos activos</div>
+          <div class="stat-value" id="statPedidos">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Cuentas por cobrar</div>
+          <div class="stat-value" id="statCuentasCobrar">—</div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h3 style="margin-bottom:14px;font-size:14px;">Ventas — últimos 7 días</h3>
+        <canvas id="graficoVentas" height="150"></canvas>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="js/app.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>

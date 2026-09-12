@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ventas / Facturación · El Pelú</title>
+<link rel="stylesheet" href="css/styles.css">
+<style>
+  .venta-grid { display: grid; grid-template-columns: 1fr 380px; gap: 18px; align-items: start; }
+  .content { margin-right: 360px; }
+  @media (max-width: 1100px) {
+    .content { margin-right: 0; }
+    .cart-panel { position: static !important; width: auto !important; margin: 20px 26px; }
+  }
+  .product-tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+  .product-tile { background: var(--bg-panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px; cursor: pointer; text-align: left; color: var(--text); font-family: inherit; }
+  .product-tile:hover { border-color: var(--volt); }
+  .product-tile img { width: 100%; height: 80px; object-fit: cover; border-radius: 6px; margin-bottom: 8px; }
+  .cart-panel { background: var(--bg-panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; position: sticky; top: 20px; }
+  .cart-item { display: grid; grid-template-columns: 1fr auto auto; align-items: center; gap: 8px; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+  .cart-qty { display: flex; align-items: center; gap: 6px; }
+  .cart-qty button { width: 22px; height: 22px; border-radius: 6px; border: 1px solid var(--line); background: var(--bg-panel-2); color: var(--text); cursor: pointer; }
+  .cart-summary-row { display: flex; justify-content: space-between; font-size: 13px; color: var(--text-dim); padding: 5px 0; }
+  .cart-summary-row.total { font-size: 17px; font-weight: 700; color: var(--text); border-top: 1px solid var(--line); margin-top: 8px; padding-top: 12px; }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <aside class="sidebar">
+    <div class="brand">EL <span>PELÚ</span></div>
+    <div class="nav-group-label">Panel</div>
+    <a class="nav-link" href="dashboard.html">Dashboard</a>
+    <div class="nav-group-label">Mantenimientos</div>
+    <a class="nav-link" href="clientes.html">Clientes</a>
+    <a class="nav-link" href="proveedores.html">Proveedores</a>
+    <a class="nav-link" href="productos.html">Productos y materiales</a>
+    <a class="nav-link" href="metodos-pago.html">Métodos de pago</a>
+    <div class="nav-group-label">Procesos</div>
+    <a class="nav-link" href="pedidos.html">Pedidos a medida</a>
+    <a class="nav-link active" href="ventas.html">Ventas / Facturación</a>
+    <a class="nav-link" href="compras.html">Compras</a>
+    <a class="nav-link" href="inventario.html">Inventario</a>
+    <a class="nav-link" href="cuentas-cobrar.html">Cuentas por cobrar</a>
+    <div class="nav-group-label">Sistema</div>
+    <a class="nav-link" href="reportes.html">Reportes</a>
+    <a class="nav-link" href="configuracion.html">Configuración</a>
+  </aside>
+
+  <div class="main">
+    <div class="topbar">
+      <h1>Ventas / Facturación</h1>
+      <div class="user-chip"></div>
+    </div>
+
+    <div class="content">
+
+      <div class="field" style="max-width:320px;margin-bottom:18px;">
+        <label>Tipo de venta</label>
+        <select id="tipoVenta" onchange="cambiarTipoVenta()">
+          <option value="PRODUCTOS">Venta de productos</option>
+          <option value="PEDIDO">Facturar pedido a medida terminado</option>
+        </select>
+      </div>
+
+      <div id="seccionProductos">
+        <div class="toolbar">
+          <input class="search-box" id="buscador" placeholder="Buscar producto..." oninput="filtrarProductos()">
+        </div>
+        <div id="tilesProductos" class="product-tiles"></div>
+      </div>
+
+      <div id="seccionPedido" style="display:none;">
+        <div class="field" style="max-width:420px;margin-bottom:18px;">
+          <label>Pedido terminado a facturar</label>
+          <select id="pedidoSeleccionado" onchange="mostrarResumenPedido()"></select>
+        </div>
+        <div class="panel" id="resumenPedido" style="max-width:420px;"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="cart-panel" style="position:fixed;right:26px;top:90px;width:340px;">
+    <h3 style="font-size:14px;margin-bottom:14px;">Factura</h3>
+
+    <div class="field" style="margin-bottom:12px;" id="fClienteVenta">
+      <label>Cliente</label>
+      <select id="cliente"><option value="">Consumidor final</option></select>
+    </div>
+
+    <div id="carrito"></div>
+
+    <div class="field" style="margin-top:12px;">
+      <label>NCF (si ya lo tiene asignado)</label>
+      <input type="text" id="ncf" placeholder="B0100000001">
+    </div>
+    <div class="field" style="margin-top:12px;">
+      <label>Descuento (RD$)</label>
+      <input type="number" id="descuento" min="0" value="0" oninput="actualizarTotales()">
+    </div>
+    <div class="field" style="margin-top:12px;">
+      <label>ITBIS (RD$)</label>
+      <input type="number" id="itbis" min="0" value="0" oninput="actualizarTotales()">
+    </div>
+    <div class="field" style="margin-top:12px;">
+      <label>Tipo de pago *</label>
+      <select id="tipoPago" onchange="mostrarInfoCredito()">
+        <option value="CONTADO">Contado</option>
+        <option value="CREDITO">Crédito</option>
+      </select>
+      <p id="infoCredito" style="display:none;font-size:11.5px;color:var(--text-dim);margin-top:6px;"></p>
+    </div>
+
+    <div style="margin-top:14px;">
+      <div class="cart-summary-row"><span>Subtotal</span><span id="subtotalTxt">RD$ 0.00</span></div>
+      <div class="cart-summary-row"><span>Descuento</span><span id="descuentoTxt">RD$ 0.00</span></div>
+      <div class="cart-summary-row"><span>ITBIS</span><span id="itbisTxt">RD$ 0.00</span></div>
+      <div class="cart-summary-row total"><span>Total</span><span id="totalTxt">RD$ 0.00</span></div>
+    </div>
+
+    <button class="btn btn-primary" style="width:100%;margin-top:16px;" onclick="finalizarVenta()">Facturar</button>
+    <button class="btn btn-outline" style="width:100%;margin-top:8px;" onclick="vaciarCarrito()">Vaciar</button>
+  </div>
+</div>
+
+<div class="overlay" id="modalRecibo">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 style="font-size:15px;">Factura registrada</h3>
+      <button class="btn-icon" onclick="cerrarModal('modalRecibo')">✕</button>
+    </div>
+    <div class="modal-body" id="reciboContenido"></div>
+    <div class="modal-footer">
+      <button class="btn btn-primary" onclick="cerrarModal('modalRecibo')">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/app.js"></script>
+<script src="js/ventas.js"></script>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Productos y materiales · El Pelú</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="app">
+
+  <aside class="sidebar">
+    <div class="brand">EL <span>PELÚ</span></div>
+    <div class="nav-group-label">Panel</div>
+    <a class="nav-link" href="dashboard.html">Dashboard</a>
+    <div class="nav-group-label">Mantenimientos</div>
+    <a class="nav-link" href="clientes.html">Clientes</a>
+    <a class="nav-link" href="proveedores.html">Proveedores</a>
+    <a class="nav-link active" href="productos.html">Productos y materiales</a>
+    <a class="nav-link" href="metodos-pago.html">Métodos de pago</a>
+    <div class="nav-group-label">Procesos</div>
+    <a class="nav-link" href="pedidos.html">Pedidos a medida</a>
+    <a class="nav-link" href="ventas.html">Ventas / Facturación</a>
+    <a class="nav-link" href="compras.html">Compras</a>
+    <a class="nav-link" href="inventario.html">Inventario</a>
+    <a class="nav-link" href="cuentas-cobrar.html">Cuentas por cobrar</a>
+    <div class="nav-group-label">Sistema</div>
+    <a class="nav-link" href="reportes.html">Reportes</a>
+    <a class="nav-link" href="configuracion.html">Configuración</a>
+  </aside>
+
+  <div class="main">
+    <div class="topbar">
+      <h1>Productos y materiales</h1>
+      <div class="user-chip"></div>
+    </div>
+
+    <div class="content">
+      <div class="stat-grid" style="grid-template-columns:repeat(3,1fr);margin-bottom:18px;">
+        <div class="stat-card">
+          <div class="stat-label">Total de productos</div>
+          <div class="stat-value" id="statTotal">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Con stock bajo</div>
+          <div class="stat-value" id="statBajo">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Valor del inventario</div>
+          <div class="stat-value" id="statValor" style="font-size:22px;">—</div>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <div style="display:flex;gap:10px;">
+          <input class="search-box" id="buscador" placeholder="Buscar por nombre o código..." oninput="filtrar()">
+          <select id="filtroTipo" class="search-box" style="width:180px;" onchange="filtrar()">
+            <option value="">Todos los tipos</option>
+            <option value="PRODUCTO">Solo productos</option>
+            <option value="MATERIAL">Solo materiales</option>
+          </select>
+        </div>
+        <button class="btn btn-primary" onclick="nuevoProducto()">+ Nuevo producto</button>
+      </div>
+
+      <div class="panel">
+        <table>
+          <thead>
+            <tr><th>Código</th><th>Nombre</th><th>Tipo</th><th>Precio venta</th><th>Stock</th><th>Nivel</th><th>Estado</th><th></th></tr>
+          </thead>
+          <tbody id="tablaProductos"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="modalProducto">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="tituloModal" style="font-size:15px;">Nuevo producto</h3>
+      <button class="btn-icon" onclick="cerrarModal('modalProducto')">✕</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="idProducto">
+      <div class="field" id="fCodigo">
+        <label>Código *</label>
+        <input type="text" id="codigo">
+        <div class="error-msg">El código es obligatorio</div>
+      </div>
+      <div class="field" id="fNombre">
+        <label>Nombre *</label>
+        <input type="text" id="nombre">
+        <div class="error-msg">El nombre es obligatorio</div>
+      </div>
+      <div class="field" id="fTipo">
+        <label>Tipo *</label>
+        <select id="tipo">
+          <option value="PRODUCTO">Producto terminado (puerta/ventana)</option>
+          <option value="MATERIAL">Material (aluminio, vidrio, herrajes...)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Unidad de medida</label>
+        <select id="unidadMedida">
+          <option value="unidad">Unidad</option>
+          <option value="m">Metro</option>
+          <option value="m2">Metro cuadrado</option>
+          <option value="pie">Pie</option>
+          <option value="pie2">Pie cuadrado</option>
+          <option value="kg">Kilogramo</option>
+          <option value="lamina">Lámina</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Proveedor</label>
+        <select id="proveedor"><option value="">Ninguno</option></select>
+      </div>
+      <div class="field" id="fPrecioCompra">
+        <label>Precio compra *</label>
+        <input type="number" id="precioCompra" min="0" step="0.01">
+        <div class="error-msg">El precio de compra es obligatorio</div>
+      </div>
+      <div class="field" id="fPrecioVenta">
+        <label>Precio venta *</label>
+        <input type="number" id="precioVenta" min="0" step="0.01">
+        <div class="error-msg">El precio de venta es obligatorio</div>
+      </div>
+      <div class="field" id="fStock">
+        <label>Stock inicial *</label>
+        <input type="number" id="stock" min="0" step="0.01">
+        <div class="error-msg">El stock es obligatorio</div>
+      </div>
+      <div class="field">
+        <label>Stock mínimo (alerta)</label>
+        <input type="number" id="stockMinimo" min="0" step="0.01" value="5">
+      </div>
+      <div class="field field-full">
+        <label>Imagen del producto</label>
+        <input type="file" id="imagen" accept="image/*" onchange="previsualizarImagen()">
+        <img id="previewImagen" style="display:none;max-width:160px;margin-top:10px;border-radius:8px;">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="cerrarModal('modalProducto')">Cancelar</button>
+      <button class="btn btn-primary" onclick="guardarProducto()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/app.js"></script>
+<script src="js/productos.js"></script>
+</body>
+</html>

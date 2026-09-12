@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Iniciar sesión · El Pelú</title>
+<link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+
+<div class="glow glow-a"></div>
+<div class="glow glow-b"></div>
+<div class="grid-overlay"></div>
+
+<div class="login-shell">
+
+  <div class="side-panel">
+    <div class="brand">EL <span>PELÚ</span></div>
+    <h1 class="tagline">Puertas y ventanas,<br>control total.</h1>
+    <p class="sub">Inventario, pedidos a medida y facturación — todo en un solo panel.</p>
+
+    <div class="metric-row">
+      <div class="metric">
+        <div class="metric-value" id="metricVentasHoy">—</div>
+        <div class="metric-label">Ventas hoy</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value" id="metricPedidos">—</div>
+        <div class="metric-label">Pedidos activos</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value" id="metricStockBajo">—</div>
+        <div class="metric-label">Stock bajo</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-panel">
+    <form class="login-card" onsubmit="return false;">
+      <div class="login-card-head">
+        <div class="brand mobile-only">EL <span>PELÚ</span></div>
+        <h2>Bienvenido</h2>
+        <p>Inicia sesión para entrar al panel</p>
+      </div>
+
+      <div class="field" id="fUsuario">
+        <label>Usuario *</label>
+        <input type="text" id="usuario" autocomplete="username" placeholder="tu.usuario">
+        <div class="error-msg">El usuario es obligatorio</div>
+      </div>
+
+      <div class="field" id="fClave">
+        <label>Contraseña *</label>
+        <div class="pass-wrap">
+          <input type="password" id="clave" autocomplete="current-password" placeholder="••••••••">
+          <button type="button" class="pass-toggle" id="btnTogglePass" onclick="togglePass()">Ver</button>
+        </div>
+        <div class="error-msg">La contraseña es obligatoria</div>
+      </div>
+
+      <button class="btn-login" onclick="iniciarSesion()">Ingresar</button>
+
+      <a href="recuperar-clave.html" class="forgot-link">¿Olvidaste tu contraseña?</a>
+    </form>
+
+    <div class="foot-note">El Pelú · Sistema de inventario y facturación</div>
+  </div>
+
+</div>
+
+<script src="js/login.js"></script>
+</body>
+</html>

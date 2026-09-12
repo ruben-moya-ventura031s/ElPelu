@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cambiar contraseña · El Pelú</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="app">
+
+  <aside class="sidebar">
+    <div class="brand">EL <span>PELÚ</span></div>
+    <div class="nav-group-label">Panel</div>
+    <a class="nav-link" href="dashboard.html">Dashboard</a>
+    <div class="nav-group-label">Mantenimientos</div>
+    <a class="nav-link" href="clientes.html">Clientes</a>
+    <a class="nav-link" href="proveedores.html">Proveedores</a>
+    <a class="nav-link" href="productos.html">Productos y materiales</a>
+    <a class="nav-link" href="metodos-pago.html">Métodos de pago</a>
+    <div class="nav-group-label">Procesos</div>
+    <a class="nav-link" href="pedidos.html">Pedidos a medida</a>
+    <a class="nav-link" href="ventas.html">Ventas / Facturación</a>
+    <a class="nav-link" href="compras.html">Compras</a>
+    <a class="nav-link" href="inventario.html">Inventario</a>
+    <a class="nav-link" href="cuentas-cobrar.html">Cuentas por cobrar</a>
+    <div class="nav-group-label">Sistema</div>
+    <a class="nav-link" href="reportes.html">Reportes</a>
+    <a class="nav-link" href="configuracion.html">Configuración</a>
+  </aside>
+
+  <div class="main">
+    <div class="topbar">
+      <h1>Cambiar mi contraseña</h1>
+      <div class="user-chip"></div>
+    </div>
+
+    <div class="content">
+      <div class="panel" style="max-width:400px;">
+        <div class="field" id="fActual" style="margin-bottom:14px;">
+          <label>Contraseña actual *</label>
+          <input type="password" id="claveActual">
+          <div class="error-msg">Ingresa tu contraseña actual</div>
+        </div>
+        <div class="field" id="fNueva" style="margin-bottom:14px;">
+          <label>Contraseña nueva *</label>
+          <input type="password" id="claveNueva">
+          <div class="error-msg">Ingresa una nueva contraseña</div>
+        </div>
+        <div class="field" id="fConfirmar">
+          <label>Confirmar contraseña nueva *</label>
+          <input type="password" id="claveConfirmar">
+          <div class="error-msg">Las contraseñas no coinciden</div>
+        </div>
+        <button class="btn btn-primary" style="width:100%;margin-top:18px;" onclick="cambiarClave()">Actualizar contraseña</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="js/app.js"></script>
+<script src="js/cambiar-clave.js"></script>
+</body>
+</html>
