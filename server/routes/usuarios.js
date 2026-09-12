@@ -61,4 +61,7 @@ router.put('/:id/cambiar-clave', requireAuth, async (req, res) => {
   } catch (error) { res.status(500).json({ error: error.message }); }
 });
 
+
+router.get('/debug-login', async (req, res) => { try { const r = await pool.query( `SELECT id_usuario, nombre, usuario, estado, (clave_hash = $2) AS coincide FROM usuarios WHERE usuario = $1`, ['admin', hashClave('admin123')] ); res.json(r.rows); } catch (e) { res.json({ error: e.message }); } });
+
 export default router;
